@@ -13,7 +13,7 @@ config :loany,
 # Configures the endpoint
 config :loany, LoanyWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "FvK009t4YphN/k0cHiLVDO48KdTYW9oYOAp5OrMkMVZH5fZB4Lbd6x7BcCx0P63m",
+  secret_key_base: System.get_env("SECRET_KEY_BASE"),
   render_errors: [view: LoanyWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Loany.PubSub, adapter: Phoenix.PubSub.PG2]
 

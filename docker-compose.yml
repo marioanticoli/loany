@@ -4,14 +4,19 @@ services:
   web:
     image: "loany:latest"
     ports:
-      - "80:4000" # In our .env file above, we chose port 4000
+      - "80:4000"
     env_file:
       - config/docker.env
+    networks:
+      - web
   db:
     image: postgres:10-alpine
-    volumes:
-      - "./volumes/postgres:/var/lib/postgresql/data"
     ports:
       - "5432:5432"
     env_file:
       - config/docker.env
+    networks:
+      - web
+networks:
+  web:
+    driver: bridge

@@ -1,5 +1,10 @@
 use Mix.Config
 
+# Configure your database
+config :loany, Loany.Repo,
+  show_sensitive_data_on_connection_error: true,
+  pool_size: 15
+
 # For production, don't forget to configure the url host
 # to something meaningful, Phoenix uses this information
 # when generating URLs.
@@ -10,7 +15,10 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :loany, LoanyWeb.Endpoint,
-  url: [host: "example.com", port: 80],
+  http: [:inet6, port: "${PORT}"],
+  url: [host: "${HOSTNAME}", port: "${PORT}"],
+  secret_key_base: "${SECRET_KEY_BASE}",
+  server: true,
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
@@ -49,7 +57,3 @@ config :logger, level: :info
 #       force_ssl: [hsts: true]
 #
 # Check `Plug.SSL` for all available options in `force_ssl`.
-
-# Finally import the config/prod.secret.exs which loads secrets
-# and configuration from environment variables.
-import_config "prod.secret.exs"
