@@ -1,0 +1,33 @@
+<h1>Show Application</h1>
+
+<ul>
+
+  <li>
+    <strong>Loan amount:</strong>
+    <%= @application.loan_amount %>
+  </li>
+
+  <li>
+    <strong>First name:</strong>
+    <%= @application.first_name %>
+  </li>
+
+  <li>
+    <strong>Last name:</strong>
+    <%= @application.last_name %>
+  </li>
+
+  <li>
+    <strong>Phone:</strong>
+    <%= @application.phone %>
+  </li>
+
+  <li>
+    <strong>Email:</strong>
+    <%= @application.email %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.application_path(@conn, :edit, @application) %></span>
+<span><%= link "Back", to: Routes.application_path(@conn, :index) %></span>

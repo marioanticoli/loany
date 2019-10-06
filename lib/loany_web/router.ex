@@ -16,11 +16,8 @@ defmodule LoanyWeb.Router do
   scope "/", LoanyWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
-  end
+    get "/", ApplicationController, :new
 
-  # Other scopes may use custom stacks.
-  # scope "/api", LoanyWeb do
-  #   pipe_through :api
-  # end
+    resources "/applications", ApplicationController, except: [:new, :delete, :update]
+  end
 end
