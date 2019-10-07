@@ -59,7 +59,8 @@ defmodule Loany.Loans do
 
   """
   def create_application(attrs \\ %{}) do
-    loan_amount = Map.fetch!(attrs, "loan_amount") |> String.to_integer()
+    application = Application.changeset(%Application{}, attrs)
+    loan_amount = Ecto.Changeset.get_field(application, :loan_amount)
 
     min =
       case :ets.lookup(:loans, :smallest_loan) do
@@ -67,23 +68,21 @@ defmodule Loany.Loans do
         [smallest_loan: val] -> val
       end
 
-    {interest, rejected} =
+    interest =
       cond do
         loan_amount <= min ->
           :ets.insert(:loans, {:smallest_loan, loan_amount})
-          {-1, true}
+          -1.0
 
         is_prime?(loan_amount) ->
-          {9.99, false}
+          9.99
 
         true ->
-          {:rand.uniform(9) + 3, false}
+          (:rand.uniform(9) + 3) / 1
       end
 
-    params = Map.merge(attrs, %{"interest" => interest, "rejected" => rejected})
-
-    %Application{}
-    |> Application.changeset(params)
+    application
+    |> Ecto.Changeset.put_change(:interest, interest)
     |> Repo.insert()
   end
 
