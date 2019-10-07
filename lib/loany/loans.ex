@@ -18,7 +18,10 @@ defmodule Loany.Loans do
 
   """
   def list_applications do
-    Repo.all(Application)
+    from(a in Application,
+      select_merge: %{rejected: fragment("? < 0", a.interest)}
+    )
+    |> Repo.all()
   end
 
   @doc """
@@ -35,7 +38,13 @@ defmodule Loany.Loans do
       ** (Ecto.NoResultsError)
 
   """
-  def get_application!(id), do: Repo.get!(Application, id)
+  def get_application!(id) do
+    from(a in Application,
+      select_merge: %{rejected: fragment("? < 0", a.interest)},
+      where: a.id == ^id
+    )
+    |> Repo.one!()
+  end
 
   @doc """
   Creates a application.
@@ -50,43 +59,32 @@ defmodule Loany.Loans do
 
   """
   def create_application(attrs \\ %{}) do
+    loan_amount = Map.fetch!(attrs, "loan_amount") |> String.to_integer()
+
+    min =
+      case :ets.lookup(:loans, :smallest_loan) do
+        [] -> loan_amount
+        [smallest_loan: val] -> val
+      end
+
+    {interest, rejected} =
+      cond do
+        loan_amount <= min ->
+          :ets.insert(:loans, {:smallest_loan, loan_amount})
+          {-1, true}
+
+        is_prime?(loan_amount) ->
+          {9.99, false}
+
+        true ->
+          {:rand.uniform(9) + 3, false}
+      end
+
+    params = Map.merge(attrs, %{"interest" => interest, "rejected" => rejected})
+
     %Application{}
-    |> Application.changeset(attrs)
+    |> Application.changeset(params)
     |> Repo.insert()
-  end
-
-  @doc """
-  Updates a application.
-
-  ## Examples
-
-      iex> update_application(application, %{field: new_value})
-      {:ok, %Application{}}
-
-      iex> update_application(application, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def update_application(%Application{} = application, attrs) do
-    application
-    |> Application.changeset(attrs)
-    |> Repo.update()
-  end
-
-  @doc """
-  Deletes a Application.
-
-  ## Examples
-
-      iex> delete_application(application)
-      {:ok, %Application{}}
-
-      iex> delete_application(application)
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def delete_application(%Application{} = application) do
-    Repo.delete(application)
   end
 
   @doc """
@@ -98,7 +96,17 @@ defmodule Loany.Loans do
       %Ecto.Changeset{source: %Application{}}
 
   """
-  def change_application(%Application{} = application) do
-    Application.changeset(application, %{})
+  def change_application(%Application{} = application),
+    do: Application.changeset(application, %{})
+
+  def is_prime?(n) when n in [2, 3], do: true
+
+  def is_prime?(n) do
+    floored_sqrt =
+      :math.sqrt(n)
+      |> Float.floor()
+      |> round
+
+    !Enum.any?(2..floored_sqrt, &(rem(n, &1) == 0))
   end
 end
