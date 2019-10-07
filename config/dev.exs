@@ -17,6 +17,7 @@ config :loany, Loany.Repo,
 # with webpack to recompile .js and .css sources.
 config :loany, LoanyWeb.Endpoint,
   http: [port: 4000],
+  secret_key_base: "gxl2RewaUceCosQkEaG/mDpsA2ENsXU+O1hFT1HPcilPnX+w/VZTWLYHbIZa4J+Y",
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
