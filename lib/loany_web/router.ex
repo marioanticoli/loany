@@ -17,7 +17,9 @@ defmodule LoanyWeb.Router do
     pipe_through :browser
 
     get "/", ApplicationController, :new
-
-    resources "/applications", ApplicationController, except: [:new, :delete, :update]
+    post "/", ApplicationController, :create
+    get "/response/:id", ApplicationController, :response
+    get "/applications", ApplicationController, :index
+    get "/applications/:id", ApplicationController, :show
   end
 end
