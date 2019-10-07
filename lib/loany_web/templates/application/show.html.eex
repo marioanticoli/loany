@@ -34,7 +34,7 @@
   <% else %>
     <strong>Interest rate:</strong>
     <%= @application.interest %>
-  <%= end %>
+  <% end %>
   </li>
 
 </ul>

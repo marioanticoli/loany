@@ -27,7 +27,7 @@
       <% else %>
       <td>-</td>
       <td><%= application.interest %></td>        
-      <%= end %>
+      <% end %>
 
       <td>
         <span><%= link "Show", to: Routes.application_path(@conn, :show, application) %></span>
