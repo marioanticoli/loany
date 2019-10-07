@@ -27,7 +27,16 @@
     <%= @application.email %>
   </li>
 
+  <li>
+  <%= if @application.rejected do %>
+    <strong>Status:</strong>
+    REJ
+  <% else %>
+    <strong>Interest rate:</strong>
+    <%= @application.interest %>
+  <%= end %>
+  </li>
+
 </ul>
 
-<span><%= link "Edit", to: Routes.application_path(@conn, :edit, @application) %></span>
 <span><%= link "Back", to: Routes.application_path(@conn, :index) %></span>

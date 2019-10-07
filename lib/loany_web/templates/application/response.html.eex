@@ -1,0 +1,29 @@
+
+<%= if @application.rejected do %>
+    <h2>Try Again!</h2>
+<% else %>
+    <h2>Congrats! We can offer you a loan with an interest of <%= @application.interest %>%</h2>
+    <h3>This is a summary of your application</h3>
+    <ul>
+        <li>
+            <strong>Loan amount:</strong>
+            <%= @application.loan_amount %>
+        </li>
+        <li>
+            <strong>First name:</strong>
+            <%= @application.first_name %>
+        </li>
+        <li>
+            <strong>Last name:</strong>
+            <%= @application.last_name %>
+        </li>
+        <li>
+            <strong>Phone:</strong>
+            <%= @application.phone %>
+        </li>
+        <li>
+            <strong>Email:</strong>
+            <%= @application.email %>
+        </li>
+    </ul>
+<% end %>

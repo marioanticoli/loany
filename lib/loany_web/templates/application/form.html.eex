@@ -6,7 +6,7 @@
   <% end %>
 
   <%= label f, :loan_amount %>
-  <%= number_input f, :loan_amount, step: "any" %>
+  <%= number_input f, :loan_amount, step: "any", placeholder: "kr" %>
   <%= error_tag f, :loan_amount %>
 
   <%= label f, :first_name %>
