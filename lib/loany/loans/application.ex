@@ -6,8 +6,10 @@ defmodule Loany.Loans.Application do
     field :email, :string
     field :first_name, :string
     field :last_name, :string
-    field :loan_amount, :float
+    field :loan_amount, :integer
     field :phone, :string
+    field :interest, :float
+    field :rejected, :boolean, virtual: true
 
     timestamps()
   end
@@ -15,7 +17,7 @@ defmodule Loany.Loans.Application do
   @doc false
   def changeset(application, attrs) do
     application
-    |> cast(attrs, [:loan_amount, :first_name, :last_name, :phone, :email])
+    |> cast(attrs, [:loan_amount, :first_name, :last_name, :phone, :email, :interest])
     |> validate_required([:loan_amount, :first_name, :last_name, :phone, :email])
     |> validate_number(:loan_amount, greater_than: 0)
     |> validate_length(:first_name, min: 1)
