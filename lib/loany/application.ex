@@ -4,20 +4,11 @@ defmodule Loany.Application do
   @moduledoc false
 
   use Application
-  import Ecto.Query
+  # import Ecto.Query
 
   def start(_type, _args) do
     # Create ETS
-    :ets.new(:loans, [:set, :protected, :named_table])
-
-    # access DB for smallest loan amount (useful if the server is stopped)
-    min =
-      case from(a in Loany.Loans.Application, select: min(a.loan_amount)) |> Loany.Repo.one() do
-        nil -> 0
-        val -> val
-      end
-
-    :ets.insert(:loans, {:smallest_loan, min})
+    :ets.new(:loans, [:set, :public, :named_table])
 
     # List all child processes to be supervised
     children = [
