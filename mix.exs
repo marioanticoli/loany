@@ -45,7 +45,8 @@ defmodule Loany.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:dialyxir, "~> 0.5.0", only: [:dev], runtime: false},
-      {:distillery, "~> 2.0"}
+      {:distillery, "~> 2.0"},
+      {:pow, "~> 1.0.13"}
     ]
   end
 
