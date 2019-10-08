@@ -10,6 +10,7 @@
 To start your Phoenix server:
 
 - Create and migrate your database with `mix ecto.setup`
+- Seed your database with `mix run priv/repo/seeds.exs`
 - Install Node.js dependencies with `cd assets && npm install`
 - Start Phoenix endpoint with `mix phx.server`
 
@@ -21,3 +22,7 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 - Instantiate the service `docker-compose up`
 
 Now you can visit [`localhost`](http://localhost) from your browser.
+
+## Usage
+
+To access the application list is necessary to login with username `admin@example.com` and password `admin`
