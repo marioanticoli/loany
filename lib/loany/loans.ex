@@ -98,6 +98,7 @@ defmodule Loany.Loans do
   def change_application(%Application{} = application),
     do: Application.changeset(application, %{})
 
+  def is_prime?(n) when is_nil(n), do: false
   def is_prime?(n) when n in [2, 3], do: true
 
   def is_prime?(n) do
