@@ -32,6 +32,6 @@ defmodule LoanyWeb.ApplicationController do
 
   def response(conn, %{"id" => id}) do
     application = Loans.get_application!(id)
-    render(conn, "response.html", application: application)
+    render(conn, "response.html", application: application, refresh: application.rejected)
   end
 end
