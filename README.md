@@ -10,7 +10,6 @@
 To start your Phoenix server:
 
 - Create and migrate your database with `mix ecto.setup`
-- Seed your database with `mix run priv/repo/seeds.exs`
 - Install Node.js dependencies with `cd assets && npm install`
 - Start Phoenix endpoint with `mix phx.server`
 
