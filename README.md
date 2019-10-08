@@ -17,6 +17,8 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 ## Production env
 
+**THIS STEP REQUIRES docker AND docker-compose**
+
 - Create the image `make build`
 - Instantiate the service `docker-compose up`
 
