@@ -17,6 +17,17 @@
           <text x="0" y="50" fill="purple">Loany</text>
         </svg>
       </section>
+        <nav>
+        <ul>
+        <%= if Pow.Plug.current_user(@conn) do %>
+          <li><%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete %></li>
+          <li><%= link "List Applications", to: Routes.application_path(@conn, :index), method: :get %></li>
+        <% else %>
+          <li><%= link "Sign in", to: Routes.pow_session_path(@conn, :new) %></li>
+          <li><%= link "Apply for a loan", to: Routes.application_path(@conn, :new), method: :get %></li>
+        <% end %>
+        </ul>
+      </nav>
     </header>
     <main role="main" class="container">
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>

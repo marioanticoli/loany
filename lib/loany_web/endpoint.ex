@@ -42,5 +42,7 @@ defmodule LoanyWeb.Endpoint do
     key: "_loany_key",
     signing_salt: "VUGHi+TR"
 
+  plug Pow.Plug.Session, otp_app: :loany
+
   plug LoanyWeb.Router
 end

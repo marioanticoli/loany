@@ -17,6 +17,11 @@ config :loany, LoanyWeb.Endpoint,
   render_errors: [view: LoanyWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Loany.PubSub, adapter: Phoenix.PubSub.PG2]
 
+config :loany, :pow,
+  user: Loany.Users.User,
+  repo: Loany.Repo,
+  web_module: LoanyWeb
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
